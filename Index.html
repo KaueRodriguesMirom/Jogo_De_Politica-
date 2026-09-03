@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Brasil Político V3 - Simulador de carreira política"
+    >
+
+    <title>Brasil Político V3</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div id="app">
+
+
+    <!-- =====================================================
+         TELA DE ABERTURA
+    ====================================================== -->
+
+    <section
+        id="startScreen"
+        class="screen active"
+    >
+
+        <div class="background-grid"></div>
+
+        <div class="start-container">
+
+            <div class="flag-icon">
+                🇧🇷
+            </div>
+
+            <div class="game-version">
+                SIMULADOR POLÍTICO • V3.0
+            </div>
+
+            <h1>
+                BRASIL
+                <span>POLÍTICO</span>
+            </h1>
+
+            <p class="start-description">
+                Construa sua carreira política,
+                dispute eleições, administre recursos,
+                enfrente debates, vote projetos,
+                forme alianças e tente chegar ao
+                mais alto cargo da República.
+            </p>
+
+            <div class="start-buttons">
+
+                <button
+                    type="button"
+                    class="btn btn-primary btn-large"
+                    onclick="showSetup()"
+                >
+                    <span>▶</span>
+                    NOVA CARREIRA
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary btn-large"
+                    onclick="loadGame()"
+                >
+                    <span>💾</span>
+                    CARREGAR JOGO
+                </button>
+
+            </div>
+
+            <div class="start-features">
+
+                <div>
+                    <strong>🗳️</strong>
+                    <span>Eleições</span>
+                </div>
+
+                <div>
+                    <strong>🏛️</strong>
+                    <span>Congresso</span>
+                </div>
+
+                <div>
+                    <strong>📺</strong>
+                    <span>Debates</span>
+                </div>
+
+                <div>
+                    <strong>🗺️</strong>
+                    <span>Mapa do Brasil</span>
+                </div>
+
+                <div>
+                    <strong>📊</strong>
+                    <span>Pesquisas</span>
+                </div>
+
+            </div>
+
+            <div class="disclaimer">
+                Jogo de simulação fictício.
+                Personagens e acontecimentos são fictícios.
+                Partidos podem utilizar siglas reais como referência.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CRIAÇÃO DO PERSONAGEM
+    ====================================================== -->
+
+    <section
+        id="setupScreen"
+        class="screen hidden"
+    >
+
+        <div class="setup-page">
+
+            <header class="setup-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        NOVA CARREIRA
+                    </div>
+
+                    <h2>
+                        Crie seu político
+                    </h2>
+
+                    <p>
+                        Sua carreira começa antes da eleição.
+                    </p>
+
+                </div>
+
+                <div class="setup-progress">
+
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </header>
+
+
+            <!-- DADOS PESSOAIS -->
+
+            <div class="setup-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Informações pessoais
+                        </h3>
+
+                        <p>
+                            Defina a identidade do seu personagem.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="playerName">
+                            Nome
+                        </label>
+
+                        <input
+                            id="playerName"
+                            type="text"
+                            maxlength="35"
+                            placeholder="Ex.: Gabriel Martins"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="playerAge">
+                            Idade
+                        </label>
+
+                        <input
+                            id="playerAge"
+                            type="number"
+                            min="18"
+                            max="90"
+                            value="28"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="playerState">
+                            Estado
+                        </label>
+
+                        <select id="playerState">
+
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+
+                            <option
+                                value="SP"
+                                selected
+                            >
+                                São Paulo
+                            </option>
+
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="playerCity">
+                            Cidade
+                        </label>
+
+                        <input
+                            id="playerCity"
+                            type="text"
+                            value="São Paulo"
+                            placeholder="Ex.: São Paulo"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PARTIDO -->
+
+            <div class="setup-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Escolha seu partido
+                        </h3>
+
+                        <p>
+                            A legenda influenciará sua estrutura de campanha.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="partyGrid"
+                    class="party-grid"
+                ></div>
+
+            </div>
+
+
+            <!-- PERFIL -->
+
+            <div class="setup-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        03
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Perfil político
+                        </h3>
+
+                        <p>
+                            Escolha uma orientação inicial para o personagem.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ideology-grid">
+
+                    <button
+                        type="button"
+                        class="ideology-card"
+                        onclick="selectIdeology(this, 'Esquerda')"
+                    >
+                        <span>←</span>
+                        <strong>Esquerda</strong>
+                        <small>Perfil inicial</small>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="ideology-card"
+                        onclick="selectIdeology(this, 'Centro-esquerda')"
+                    >
+                        <span>↖</span>
+                        <strong>Centro-esquerda</strong>
+                        <small>Perfil inicial</small>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="ideology-card selected"
+                        onclick="selectIdeology(this, 'Centro')"
+                    >
+                        <span>●</span>
+                        <strong>Centro</strong>
+                        <small>Perfil inicial</small>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="ideology-card"
+                        onclick="selectIdeology(this, 'Centro-direita')"
+                    >
+                        <span>↗</span>
+                        <strong>Centro-direita</strong>
+                        <small>Perfil inicial</small>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="ideology-card"
+                        onclick="selectIdeology(this, 'Direita')"
+                    >
+                        <span>→</span>
+                        <strong>Direita</strong>
+                        <small>Perfil inicial</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARGO -->
+
+            <div class="setup-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        04
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Primeiro objetivo
+                        </h3>
+
+                        <p>
+                            Escolha onde sua carreira começará.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="career-choice-grid">
+
+                    <button
+                        type="button"
+                        class="career-card selected"
+                        onclick="selectCareer(this, 'deputado-federal')"
+                    >
+
+                        <span class="career-icon">
+                            🏛️
+                        </span>
+
+                        <strong>
+                            Deputado Federal
+                        </strong>
+
+                        <small>
+                            Câmara dos Deputados
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="career-card"
+                        onclick="selectCareer(this, 'deputado-estadual')"
+                    >
+
+                        <span class="career-icon">
+                            🏛️
+                        </span>
+
+                        <strong>
+                            Deputado Estadual
+                        </strong>
+
+                        <small>
+                            Assembleia Legislativa
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="career-card"
+                        onclick="selectCareer(this, 'prefeito')"
+                    >
+
+                        <span class="career-icon">
+                            🏙️
+                        </span>
+
+                        <strong>
+                            Prefeito
+                        </strong>
+
+                        <small>
+                            Executivo municipal
+                        </small>
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary btn-large full-width"
+                    onclick="createCharacter()"
+                >
+
+                    COMEÇAR MINHA CARREIRA
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         JOGO PRINCIPAL
+    ====================================================== -->
+
+    <section
+        id="gameScreen"
+        class="screen game-screen hidden"
+    >
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+                <div class="brand">
+
+                    <span class="brand-symbol">
+                        🇧🇷
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            BRASIL POLÍTICO
+                        </strong>
+
+                        <small>
+                            SIMULADOR V3
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-center">
+
+                <div class="date-box">
+
+                    <small>
+                        CALENDÁRIO
+                    </small>
+
+                    <strong id="dateDisplay">
+                        DIA 1
+                    </strong>
+
+                </div>
+
+
+                <div class="phase-box">
+
+                    <span class="live-dot"></span>
+
+                    <span id="phaseDisplay">
+                        PRÉ-CAMPANHA
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="resource">
+
+                    <span>💰</span>
+
+                    <div>
+
+                        <small>
+                            CAIXA
+                        </small>
+
+                        <strong id="moneyDisplay">
+                            R$ 50.000
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="resource">
+
+                    <span>⚡</span>
+
+                    <div>
+
+                        <small>
+                            ENERGIA
+                        </small>
+
+                        <strong id="energyDisplay">
+                            100
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================
+                     BOTÃO SALVAR
+                ================================= -->
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    title="Salvar jogo"
+                    aria-label="Salvar jogo"
+                    onclick="saveGameUI()"
+                >
+                    💾
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="app-body">
+
+
+            <!-- =================================================
+                 SIDEBAR
+            ================================================== -->
+
+            <aside
+                id="sidebar"
+                class="sidebar"
+            >
+
+                <div class="sidebar-profile">
+
+                    <div class="profile-avatar">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <strong id="sidebarName">
+                            Seu Nome
+                        </strong>
+
+                        <span id="sidebarParty">
+                            PARTIDO
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <nav class="main-nav">
+
+                    <button
+                        type="button"
+                        class="nav-item active"
+                        onclick="navigateTo('dashboard')"
+                        data-page="dashboard"
+                    >
+
+                        <span>📊</span>
+
+                        <div>
+
+                            <strong>
+                                Painel
+                            </strong>
+
+                            <small>
+                                Visão geral
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('map')"
+                        data-page="map"
+                    >
+
+                        <span>🗺️</span>
+
+                        <div>
+
+                            <strong>
+                                Mapa eleitoral
+                            </strong>
+
+                            <small>
+                                Estados e cidades
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('campaign')"
+                        data-page="campaign"
+                    >
+
+                        <span>📣</span>
+
+                        <div>
+
+                            <strong>
+                                Campanha
+                            </strong>
+
+                            <small>
+                                Agenda e ações
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('polls')"
+                        data-page="polls"
+                    >
+
+                        <span>📈</span>
+
+                        <div>
+
+                            <strong>
+                                Pesquisas
+                            </strong>
+
+                            <small>
+                                Intenção de voto
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <div class="nav-divider"></div>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('debates')"
+                        data-page="debates"
+                    >
+
+                        <span>📺</span>
+
+                        <div>
+
+                            <strong>
+                                Debates
+                            </strong>
+
+                            <small>
+                                Entrevistas e confrontos
+                            </small>
+
+                        </div>
+
+                        <em class="notification-badge">
+                            !
+                        </em>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('news')"
+                        data-page="news"
+                    >
+
+                        <span>📰</span>
+
+                        <div>
+
+                            <strong>
+                                Notícias
+                            </strong>
+
+                            <small>
+                                Imprensa
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('party')"
+                        data-page="party"
+                    >
+
+                        <span>🏛️</span>
+
+                        <div>
+
+                            <strong>
+                                Partido
+                            </strong>
+
+                            <small>
+                                Bancada e alianças
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <div class="nav-divider"></div>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('budget')"
+                        data-page="budget"
+                    >
+
+                        <span>💰</span>
+
+                        <div>
+
+                            <strong>
+                                Orçamento
+                            </strong>
+
+                            <small>
+                                Finanças
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="navigateTo('parliament')"
+                        data-page="parliament"
+                    >
+
+                        <span>🏛️</span>
+
+                        <div>
+
+                            <strong>
+                                Congresso
+                            </strong>
+
+                            <small>
+                                Câmara e Senado
+                            </small>
+
+                        </div>
+
+                    </button>
+
+                </nav>
+
+
+                <!-- =================================================
+                     SALVAR NA SIDEBAR
+                ================================================== -->
+
+                <div class="sidebar-bottom">
+
+                    <button
+                        type="button"
+                        class="nav-item"
+                        onclick="saveGameUI()"
+                    >
+
+                        <span>
+                            💾
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Salvar
+                            </strong>
+
+                            <small>
+                                Salvar progresso
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <div class="simulation-label">
+
+                        <span class="live-dot"></span>
+
+                        SIMULAÇÃO ATIVA
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- =================================================
+                 CONTEÚDO
+            ================================================== -->
+
+            <main
+                id="mainContent"
+                class="main-content"
+            >
+
+
+                <!-- =============================================
+                     DASHBOARD
+                ============================================== -->
+
+                <div
+                    id="dashboardPage"
+                    class="page active-page"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                PAINEL DE CONTROLE
+                            </div>
+
+                            <h1>
+                                Olá,
+                                <span id="welcomeName">
+                                    candidato
+                                </span>.
+                            </h1>
+
+                            <p>
+                                Aqui está o resumo da sua carreira hoje.
+                            </p>
+
+                        </div>
+
+
+                        <div class="next-day-area">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                onclick="nextDay()"
+                            >
+                                AVANÇAR DIA
+                                <span>→</span>
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                onclick="toggleAutoDay()"
+                            >
+                                ⏱ Automático
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS PRINCIPAL -->
+
+                    <div class="status-grid">
+
+                        <div class="big-status-card popularity-card">
+
+                            <div class="status-card-top">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        POPULARIDADE
+                                    </span>
+
+                                    <strong id="popularity">
+                                        15%
+                                    </strong>
+
+                                </div>
+
+                                <span class="status-icon">
+                                    📣
+                                </span>
+
+                            </div>
+
+
+                            <div class="big-progress">
+
+                                <div
+                                    id="popularityBar"
+                                    style="width:15%"
+                                ></div>
+
+                            </div>
+
+                            <small>
+                                Percepção geral do público
+                            </small>
+
+                        </div>
+
+
+                        <div class="big-status-card reputation-card">
+
+                            <div class="status-card-top">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        REPUTAÇÃO
+                                    </span>
+
+                                    <strong id="reputation">
+                                        50%
+                                    </strong>
+
+                                </div>
+
+                                <span class="status-icon">
+                                    ⭐
+                                </span>
+
+                            </div>
+
+
+                            <div class="big-progress">
+
+                                <div
+                                    id="reputationBar"
+                                    style="width:50%"
+                                ></div>
+
+                            </div>
+
+                            <small>
+                                Confiança e credibilidade
+                            </small>
+
+                        </div>
+
+
+                        <div class="big-status-card vote-card">
+
+                            <div class="status-card-top">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        INTENÇÃO DE VOTO
+                                    </span>
+
+                                    <strong id="votes">
+                                        2%
+                                    </strong>
+
+                                </div>
+
+                                <span class="status-icon">
+                                    🗳️
+                                </span>
+
+                            </div>
+
+
+                            <div class="big-progress">
+
+                                <div
+                                    id="votesBar"
+                                    style="width:10%"
+                                ></div>
+
+                            </div>
+
+                            <small>
+                                Pesquisa simulada atual
+                            </small>
+
+                        </div>
+
+
+                        <div class="big-status-card followers-card">
+
+                            <div class="status-card-top">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        SEGUIDORES
+                                    </span>
+
+                                    <strong id="followers">
+                                        1.200
+                                    </strong>
+
+                                </div>
+
+                                <span class="status-icon">
+                                    👥
+                                </span>
+
+                            </div>
+
+
+                            <div class="followers-growth">
+
+                                <span>↑</span>
+
+                                <span id="followersGrowth">
+                                    +0
+                                </span>
+
+                                hoje
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- GRID PRINCIPAL -->
+
+                    <div class="dashboard-grid">
+
+
+                        <!-- AGENDA -->
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        AGENDA
+                                    </span>
+
+                                    <h2>
+                                        O que fazer hoje?
+                                    </h2>
+
+                                </div>
+
+                                <span class="energy-pill">
+
+                                    ⚡
+
+                                    <span id="agendaEnergy">
+                                        100
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="action-grid">
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('social')"
+                                >
+
+                                    <span class="action-icon">
+                                        📱
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Redes sociais
+                                        </strong>
+
+                                        <small>
+                                            Publicar conteúdo
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -10 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('rally')"
+                                >
+
+                                    <span class="action-icon">
+                                        🎤
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Comício
+                                        </strong>
+
+                                        <small>
+                                            Mobilizar eleitores
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -25 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('visit')"
+                                >
+
+                                    <span class="action-icon">
+                                        🏘️
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Visita
+                                        </strong>
+
+                                        <small>
+                                            Comunidade local
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -15 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('interview')"
+                                >
+
+                                    <span class="action-icon">
+                                        🎙️
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Entrevista
+                                        </strong>
+
+                                        <small>
+                                            Jornalista fictício
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -20 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('debate')"
+                                >
+
+                                    <span class="action-icon">
+                                        📺
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Debate
+                                        </strong>
+
+                                        <small>
+                                            Debate completo
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -30 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('party')"
+                                >
+
+                                    <span class="action-icon">
+                                        🏛️
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Partido
+                                        </strong>
+
+                                        <small>
+                                            Reunião partidária
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -15 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('fundraising')"
+                                >
+
+                                    <span class="action-icon">
+                                        💰
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Arrecadação
+                                        </strong>
+
+                                        <small>
+                                            Recursos de campanha
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        -15 ⚡
+                                    </span>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="action-card"
+                                    onclick="action('rest')"
+                                >
+
+                                    <span class="action-icon">
+                                        ☕
+                                    </span>
+
+                                    <div>
+
+                                        <strong>
+                                            Descansar
+                                        </strong>
+
+                                        <small>
+                                            Recuperar energia
+                                        </small>
+
+                                    </div>
+
+                                    <span class="action-cost">
+                                        +100 ⚡
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- PESQUISA -->
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        PESQUISA
+                                    </span>
+
+                                    <h2>
+                                        Corrida eleitoral
+                                    </h2>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="panel-link"
+                                    onclick="navigateTo('polls')"
+                                >
+                                    VER MAIS →
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                id="pollChart"
+                                class="poll-chart"
+                            ></div>
+
+
+                            <div class="poll-footer">
+
+                                <span>
+                                    Última atualização
+                                </span>
+
+                                <strong id="pollDay">
+                                    Dia 1
+                                </strong>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+
+                    <!-- SEGUNDO GRID -->
+
+                    <div class="dashboard-grid lower-grid">
+
+
+                        <!-- MAPA RESUMIDO -->
+
+                        <section class="panel map-mini-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        TERRITÓRIO
+                                    </span>
+
+                                    <h2>
+                                        Mapa eleitoral
+                                    </h2>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="panel-link"
+                                    onclick="navigateTo('map')"
+                                >
+                                    ABRIR MAPA →
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                id="miniMap"
+                                class="mini-map"
+                            >
+
+                                <div class="map-placeholder">
+
+                                    <div class="map-brazil-shape">
+                                        🇧🇷
+                                    </div>
+
+                                    <strong>
+                                        Brasil
+                                    </strong>
+
+                                    <span>
+                                        Clique para analisar os estados
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- NOTÍCIAS -->
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        IMPRENSA
+                                    </span>
+
+                                    <h2>
+                                        Últimas notícias
+                                    </h2>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="panel-link"
+                                    onclick="navigateTo('news')"
+                                >
+                                    TODAS →
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                id="newsFeed"
+                                class="news-feed"
+                            ></div>
+
+                        </section>
+
+                    </div>
+
+
+                    <!-- EVENTO -->
+
+                    <section
+                        id="eventPanel"
+                        class="event-panel hidden"
+                    >
+
+                        <div id="eventContent"></div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- =============================================
+                     MAPA
+                ============================================== -->
+
+                <div
+                    id="mapPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                TERRITÓRIO ELEITORAL
+                            </div>
+
+                            <h1>
+                                Mapa do Brasil
+                            </h1>
+
+                            <p>
+                                Selecione um estado para analisar sua campanha.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="map-layout">
+
+                        <section class="panel brazil-map-panel">
+
+                            <div
+                                id="brazilMap"
+                                class="brazil-map"
+                            ></div>
+
+                        </section>
+
+
+                        <section
+                            id="stateDetails"
+                            class="panel state-details"
+                        >
+
+                            <div class="empty-state">
+
+                                <span>🗺️</span>
+
+                                <h3>
+                                    Selecione um estado
+                                </h3>
+
+                                <p>
+                                    Clique em um estado para ver
+                                    popularidade, intenção de voto,
+                                    rejeição e ações disponíveis.
+                                </p>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CAMPANHA
+                ============================================== -->
+
+                <div
+                    id="campaignPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                CAMPANHA
+                            </div>
+
+                            <h1>
+                                Central de campanha
+                            </h1>
+
+                            <p>
+                                Organize sua agenda e administre seus recursos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campaign-grid">
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        AGENDA
+                                    </span>
+
+                                    <h2>
+                                        Compromissos
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="campaignAgenda"
+                                class="agenda-list"
+                            ></div>
+
+                        </section>
+
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        RECURSOS
+                                    </span>
+
+                                    <h2>
+                                        Campanha
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="resource-list">
+
+                                <div class="resource-row">
+
+                                    <span>
+                                        Caixa
+                                    </span>
+
+                                    <strong id="campaignMoney">
+                                        R$ 50.000
+                                    </strong>
+
+                                </div>
+
+                                <div class="resource-row">
+
+                                    <span>
+                                        Equipe
+                                    </span>
+
+                                    <strong id="campaignStaff">
+                                        5
+                                    </strong>
+
+                                </div>
+
+                                <div class="resource-row">
+
+                                    <span>
+                                        Voluntários
+                                    </span>
+
+                                    <strong id="campaignVolunteers">
+                                        25
+                                    </strong>
+
+                                </div>
+
+                                <div class="resource-row">
+
+                                    <span>
+                                        Alcance digital
+                                    </span>
+
+                                    <strong id="campaignReach">
+                                        1.200
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     PESQUISAS
+                ============================================== -->
+
+                <div
+                    id="pollsPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                PESQUISAS ELEITORAIS
+                            </div>
+
+                            <h1>
+                                Termômetro eleitoral
+                            </h1>
+
+                            <p>
+                                Acompanhe a evolução da corrida.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="polls-grid">
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        CORRIDA
+                                    </span>
+
+                                    <h2>
+                                        Intenção de voto
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="largePollChart"
+                                class="large-poll-chart"
+                            ></div>
+
+                        </section>
+
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        ESTADOS
+                                    </span>
+
+                                    <h2>
+                                        Desempenho regional
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="statePollList"
+                                class="state-poll-list"
+                            ></div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     DEBATES
+                ============================================== -->
+
+                <div
+                    id="debatesPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                COMUNICAÇÃO
+                            </div>
+
+                            <h1>
+                                Debates e entrevistas
+                            </h1>
+
+                            <p>
+                                Cada confronto terá perguntas e respostas diferentes.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="debate-selection-grid">
+
+
+                        <button
+                            type="button"
+                            class="debate-mode-card"
+                            onclick="startDebate('tv')"
+                        >
+
+                            <span class="debate-icon">
+                                📺
+                            </span>
+
+                            <strong>
+                                Debate televisionado
+                            </strong>
+
+                            <small>
+                                8 rodadas
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="debate-mode-card"
+                            onclick="startDebate('radio')"
+                        >
+
+                            <span class="debate-icon">
+                                📻
+                            </span>
+
+                            <strong>
+                                Entrevista de rádio
+                            </strong>
+
+                            <small>
+                                5 rodadas
+                            </small>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="debate-mode-card"
+                            onclick="startDebate('press')"
+                        >
+
+                            <span class="debate-icon">
+                                🎙️
+                            </span>
+
+                            <strong>
+                                Entrevista coletiva
+                            </strong>
+
+                            <small>
+                                6 rodadas
+                            </small>
+
+                        </button>
+
+                    </div>
+
+
+                    <section
+                        id="debateArena"
+                        class="panel debate-arena hidden"
+                    >
+
+                        <div id="debateContent"></div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- =============================================
+                     NOTÍCIAS
+                ============================================== -->
+
+                <div
+                    id="newsPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                IMPRENSA
+                            </div>
+
+                            <h1>
+                                Central de notícias
+                            </h1>
+
+                            <p>
+                                Acompanhe a repercussão da sua carreira.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <section class="panel">
+
+                        <div
+                            id="fullNewsFeed"
+                            class="full-news-feed"
+                        ></div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- =============================================
+                     PARTIDO
+                ============================================== -->
+
+                <div
+                    id="partyPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                ORGANIZAÇÃO PARTIDÁRIA
+                            </div>
+
+                            <h1>
+                                Seu partido
+                            </h1>
+
+                            <p>
+                                Estrutura, bancada, alianças e apoio.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="party-dashboard-grid">
+
+                        <section class="panel party-profile-panel">
+
+                            <div class="party-big-logo">
+                                🏛️
+                            </div>
+
+                            <div>
+
+                                <span
+                                    id="partyPageSigla"
+                                    class="party-sigla"
+                                >
+                                    --
+                                </span>
+
+                                <h2 id="partyPageName">
+                                    Partido
+                                </h2>
+
+                                <p>
+                                    Organização partidária da sua carreira.
+                                </p>
+
+                            </div>
+
+                        </section>
+
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        APOIO
+                                    </span>
+
+                                    <h2>
+                                        Relação com o partido
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="big-number">
+
+                                <strong id="partySupport">
+                                    50%
+                                </strong>
+
+                                <span>
+                                    apoio interno
+                                </span>
+
+                            </div>
+
+
+                            <div class="big-progress">
+
+                                <div
+                                    id="partySupportBar"
+                                    style="width:50%"
+                                ></div>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     ORÇAMENTO
+                ============================================== -->
+
+                <div
+                    id="budgetPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                FINANÇAS
+                            </div>
+
+                            <h1>
+                                Orçamento
+                            </h1>
+
+                            <p>
+                                Gerencie os recursos disponíveis.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="budget-grid">
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        SALDO
+                                    </span>
+
+                                    <h2>
+                                        Caixa disponível
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="budget-balance">
+
+                                <strong id="budgetBalance">
+                                    R$ 50.000
+                                </strong>
+
+                                <span>
+                                    recursos simulados
+                                </span>
+
+                            </div>
+
+                        </section>
+
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        DESPESAS
+                                    </span>
+
+                                    <h2>
+                                        Distribuição
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="budgetBars"
+                                class="budget-bars"
+                            ></div>
+
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     PARLAMENTO
+                ============================================== -->
+
+                <div
+                    id="parliamentPage"
+                    class="page hidden"
+                >
+
+                    <div class="page-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                PODER LEGISLATIVO
+                            </div>
+
+                            <h1>
+                                Congresso Nacional
+                            </h1>
+
+                            <p>
+                                Câmara dos Deputados e Senado Federal.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="parliament-tabs">
+
+                        <button
+                            type="button"
+                            class="parliament-tab active"
+                            onclick="openParliamentTab('chamber')"
+                        >
+                            🏛️ Câmara
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="parliament-tab"
+                            onclick="openParliamentTab('senate')"
+                        >
+                            🏛️ Senado
+                        </button>
+
+                    </div>
+
+
+                    <section
+                        id="chamberTab"
+                        class="parliament-tab-content"
+                    >
+
+                        <div class="parliament-layout">
+
+
+                            <div class="panel plenary-panel">
+
+                                <div class="panel-header">
+
+                                    <div>
+
+                                        <span class="panel-eyebrow">
+                                            PLENÁRIO
+                                        </span>
+
+                                        <h2>
+                                            Câmara dos Deputados
+                                        </h2>
+
+                                    </div>
+
+                                    <span class="session-status">
+                                        ● SESSÃO
+                                    </span>
+
+                                </div>
+
+
+                                <div
+                                    id="chamberPlenary"
+                                    class="plenary"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="panel">
+
+                                <div class="panel-header">
+
+                                    <div>
+
+                                        <span class="panel-eyebrow">
+                                            VOTAÇÃO
+                                        </span>
+
+                                        <h2>
+                                            Projeto em análise
+                                        </h2>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    id="currentBill"
+                                    class="current-bill"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section
+                        id="senateTab"
+                        class="parliament-tab-content hidden"
+                    >
+
+                        <div class="panel senate-panel">
+
+                            <div class="senate-header">
+
+                                <div>
+                                    🏛️
+                                </div>
+
+                                <div>
+
+                                    <span class="panel-eyebrow">
+                                        PLENÁRIO
+                                    </span>
+
+                                    <h2>
+                                        Senado Federal
+                                    </h2>
+
+                                    <p>
+                                        Sistema de votação parlamentar.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="senatePlenary"
+                                class="plenary senate-plenary"
+                            ></div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
+
+    <div
+        id="modal"
+        class="modal hidden"
+    >
+
+        <div
+            class="modal-overlay"
+            onclick="closeModal()"
+        ></div>
+
+        <div class="modal-box">
+
+            <button
+                type="button"
+                class="modal-close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+    >
+
+        <span id="toastIcon">
+            ✓
+        </span>
+
+        <span id="toastMessage">
+            Operação concluída.
+        </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONFIRMAÇÃO
+    ====================================================== -->
+
+    <div
+        id="confirmationModal"
+        class="modal hidden"
+    >
+
+        <div
+            class="modal-overlay"
+            onclick="closeConfirmation()"
+        ></div>
+
+        <div class="modal-box confirmation-box">
+
+            <div id="confirmationContent"></div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     
+     IMPORTANTE:
+     data.js precisa vir antes de game.js.
+     game.js precisa vir antes dos módulos que dependem dele.
+========================================================= -->
+
+<script src="js/data.js"></script>
+<script src="js/game.js"></script>
+<script src="js/debate.js"></script>
+<script src="js/campaign.js"></script>
+<script src="js/parliament.js"></script>
+<script src="js/elections.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+
+</html>
